@@ -27,6 +27,37 @@ class Client{
 		//query all
 		$query = "SELECT";
 	}
-							
+	
+         function create(){
+ 
+    // query para hacer el insert del contenido de record
+    $query = "INSERT INTO
+                " . $this->table_name . "
+            SET
+                customerNumber=:customerNumber, description=:description, customerID=:customerID";
+ 
+    // preparamos el query
+    $stmt = $this->conn->prepare($query);
+ 
+    // lo saneamos por seguridad
+    $this->customerNumber=htmlspecialchars(strip_tags($this->customerNumber));    
+    $this->description=htmlspecialchars(strip_tags($this->description));
+    $this->customerID=htmlspecialchars(strip_tags($this->customerID));    
+ 
+    // enlazamos los valores
+    
+    $stmt->bindParam(":customerNumber", $this->customerNumber);
+    $stmt->bindParam(":description", $this->description);
+    $stmt->bindParam(":customerID", $this->customerID);
+ 
+    // ejecutar
+    if($stmt->execute()){
+        return true;
+    }
+ 
+    return false;
+     
+}
+        
 	}
 ?>
