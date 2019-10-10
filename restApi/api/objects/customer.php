@@ -37,38 +37,38 @@ class Customer{
 	
 	function readOne(){
  
-    // query para leer uno solo de los record
-    $query = "SELECT
-                *
-           FROM     " . $this->table_name . "               
-           WHERE
+    		// query para leer uno solo de los record
+    		$query = "SELECT
+                	*
+           	FROM     " . $this->table_name . "               
+           	WHERE
                 customerID = ?
-            LIMIT
+            	LIMIT
                 0,1";
  
-    // preparar el query statement
-    $stmt = $this->conn->prepare( $query );
+    		// preparar el query statement
+    		$stmt = $this->conn->prepare( $query );
  
-    // enlazar la customerID de la customer al que vamos a hacer el update
-    $stmt->bindParam(1, $this->customerID);
+    		// enlazar la customerID de la customer al que vamos a hacer el update
+    		$stmt->bindParam(1, $this->customerID);
  
-    // ejecutar
-    $stmt->execute();
+    		// ejecutar
+    		$stmt->execute();
  
-    // tomar el row 
-    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+	    	// tomar el row 
+    		$row = $stmt->fetch(PDO::FETCH_ASSOC);
  
-    // ponerle los valores a las propiedades del objeto 
-    $this->customerID = $row['customerID'];    
-    $this->firstName = $row['firstName'];    
-    $this->lastName = $row['lastName'];
-    $this->username = $row['username'];
-    $this->password = $row['password'];
-    $this->country = $row['country'];
-    $this->region = $row['region'];
-    $this->city = $row['city'];
-    $this->address = $row['address'];
-}
+    		// ponerle los valores a las propiedades del objeto 
+    		$this->customerID = $row['customerID'];    
+    		$this->firstName = $row['firstName'];    
+    		$this->lastName = $row['lastName'];
+    		$this->username = $row['username'];
+    		$this->password = $row['password'];
+    		$this->country = $row['country'];
+    		$this->region = $row['region'];
+    		$this->city = $row['city'];
+    		$this->address = $row['address'];
+	}
 
 	
         function create(){
@@ -108,25 +108,25 @@ class Customer{
 	
 	function update(){
  
-    // query para update
-    $query = "UPDATE
-                " . $this->table_name . "
-            SET 	    	
-                firstName=:firstName,
-                lastName=:lastName,
-                username=:username,
-                password=:password,
-                country=:country,
-                region=:region,
-                city=:city,
-                address=:address                
-            WHERE
-                customerID = :customerID";
+    		// query para update
+    		$query = "UPDATE
+                	" . $this->table_name . "
+           	 SET 	    	
+                	firstName=:firstName,
+                	lastName=:lastName,
+                	username=:username,
+                	password=:password,
+                	country=:country,
+                	region=:region,
+                	city=:city,
+                	address=:address                
+            	WHERE
+                	customerID = :customerID";
  
-    // preparamos el query
-    $stmt = $this->conn->prepare($query);
+    		// preparamos el query
+    		$stmt = $this->conn->prepare($query);
  
-    // lo saneamos por seguridad
+    		// lo saneamos por seguridad
     
                 $this->customerID=htmlspecialchars(strip_tags($this->customerID));    
     		$this->firstName=htmlspecialchars(strip_tags($this->firstName));
@@ -138,7 +138,7 @@ class Customer{
 		$this->city=htmlspecialchars(strip_tags($this->city));
 		$this->address=htmlspecialchars(strip_tags($this->address));
  
-    // Enlazamos los nuevos valores 
+    		// Enlazamos los nuevos valores 
     
                 $stmt->bindParam(":customerID", $this->customerID);
     		$stmt->bindParam(":firstName", $this->firstName);
@@ -150,13 +150,12 @@ class Customer{
 		$stmt->bindParam(":city", $this->city);
 		$stmt->bindParam(":address", $this->address);
  
-    // execute the query
-    if($stmt->execute()){
-        return true;
-    }
- 
-    return false;
-}
+    		// execute the query
+    		if($stmt->execute()){
+        	return true;
+    		}
+    		return false;
+	}
 
 	
 	function delete(){
@@ -200,41 +199,74 @@ class Customer{
 	}
 	
 	// read pero con paginación
-public function readPaging($from_record_num, $records_per_page){
- 
-    // select query
-    $query = "SELECT
-                *
-            FROM
-                " . $this->table_name . "
-                
-            LIMIT ?, ?";
- 
-    // prepare query statement
-    $stmt = $this->conn->prepare( $query );
- 
-    // bind variable values
-    $stmt->bindParam(1, $from_record_num, PDO::PARAM_INT);
-    $stmt->bindParam(2, $records_per_page, PDO::PARAM_INT);
- 
-    // execute query
-    $stmt->execute();
- 
-    // return values from database
-    return $stmt;
-}
+	public function readPaging($from_record_num, $records_per_page){
 
-// count para la paginación
-public function count(){
-    $query = "SELECT COUNT(*) as total_rows FROM " . $this->table_name . "";
- 
-    $stmt = $this->conn->prepare( $query );
-    $stmt->execute();
-    $row = $stmt->fetch(PDO::FETCH_ASSOC);
- 
-    return $row['total_rows'];
-}
+	    // select query
+	    $query = "SELECT
+			*
+		    FROM
+			" . $this->table_name . "
 
+		    LIMIT ?, ?";
+
+	    // prepare query statement
+	    $stmt = $this->conn->prepare( $query );
+
+	    // bind variable values
+	    $stmt->bindParam(1, $from_record_num, PDO::PARAM_INT);
+	    $stmt->bindParam(2, $records_per_page, PDO::PARAM_INT);
+
+	    // execute query
+	    $stmt->execute();
+
+	    // return values from database
+	    return $stmt;
+	}
+
+	// count para la paginación
+	public function count(){
+	    $query = "SELECT COUNT(*) as total_rows FROM " . $this->table_name . "";
+
+	    $stmt = $this->conn->prepare( $query );
+	    $stmt->execute();
+	    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+	    return $row['total_rows'];
+	}
+	//Comprobamos si el username existe en la BBDD
+	function usernameExist(){
+		// Query para comprobar si username existe
+		$query = "SELECT * FROM " . $this->table_name ." WHERE username = ? LIMIT 0,1";
+		//Preparamos la query
+		$stmt = $this->conn->prepare($query);
+		// saneamos
+		$this->username=htmlspecialchars(strip_tags($this->username));
+		//Hacemos BindParam a los atributos
+		$stmt->bindParam(1,$this->username);
+		// ejecutamos query
+		$stmt->execute();
+		//Obtenemos el numero de filas
+		$num = $stmt->rowCount();
+		// Si existe el username, asignamos los valores a las propiedades del objeto para el fácil acceso y uso php sessions
+		if($num>0){
+			//Obtenemos los valores guardados
+			$row = $stmt->fetch(PDO::FETCH_ASSOC);
+			// Asignamos los valores a las propiedades
+			$this->customerID = $row["customerID"];
+			$this->firstName = $row["firstName"];
+			$this->lastName = $row["lastName"];
+			$this->username = $row["username"];
+			$this->password = $row["password"];
+			$this->country = $row["country"];
+			$this->region = $row["region"];
+			$this->city = $row["city"];
+			$this->address = $row["address"];
+
+			//retorna TRUE porque el username existe en la BBDD
+		}
+			//Retorna FALSE si el mail no existe en la BBDD
+			return false;
+	}
 	
 }
 ?>
