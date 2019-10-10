@@ -33,6 +33,42 @@ class Customer{
 		return $stmt;
 	}
 	
+	function readOne(){
+ 
+    // query para leer uno solo de los record
+    $query = "SELECT
+                *
+           FROM     " . $this->table_name . "               
+           WHERE
+                customerID = ?
+            LIMIT
+                0,1";
+ 
+    // preparar el query statement
+    $stmt = $this->conn->prepare( $query );
+ 
+    // enlazar la customerID de la customer al que vamos a hacer el update
+    $stmt->bindParam(1, $this->customerID);
+ 
+    // ejecutar
+    $stmt->execute();
+ 
+    // tomar el row 
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+ 
+    // ponerle los valores a las propiedades del objeto 
+    $this->customerID = $row['customerID'];    
+    $this->firstName = $row['firstName'];    
+    $this->lastName = $row['lastName'];
+    $this->username = $row['username'];
+    $this->password = $row['password'];
+    $this->country = $row['country'];
+    $this->region = $row['region'];
+    $this->city = $row['city'];
+    $this->address = $row['address'];
+}
+
+	
         function create(){
     	// query para hacer el insert del contenido de record
     		$query = "INSERT INTO " . $this->table_name . " SET
