@@ -1,5 +1,5 @@
 <?php
-class Client{
+class Customer{
 	
 	// Conexión a la db y nombre de la tabla
 	private $conn;
@@ -53,7 +53,7 @@ class Client{
 		$this->city=htmlspecialchars(strip_tags($this->city));
 		$this->address=htmlspecialchars(strip_tags($this->address));
  
-    // enlazamos los valores
+    	// enlazamos los valores
     
     		$stmt->bindParam(":customerID", $this->customerID);
     		$stmt->bindParam(":firstName", $this->firstName);
@@ -65,14 +65,14 @@ class Client{
 		$stmt->bindParam(":city", $this->city);
 		$stmt->bindParam(":address", $this->address);
  
-    // ejecutar
-    if($stmt->execute()){
-        return true;
-    }
+    	// ejecutar
+    		if($stmt->execute()){
+        		return true;
+   		}
  
-    return false;
+    		return false;
      
-}
+			}
         
 	}
 ?>
