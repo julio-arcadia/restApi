@@ -25,7 +25,13 @@ class Client{
 	// read customer
 	function read(){
 		//query all
-		$query = "SELECT";
+		$query = "SELECT * FROM " . $this->table_name;
+		
+		// Preparar Statement
+		$stmt = $this->conn->prepare($query);
+		// Execute Query
+		$stmt->execute();
+		return $stmt;
 	}
 	
          function create(){
