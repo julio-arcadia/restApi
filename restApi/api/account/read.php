@@ -12,7 +12,7 @@ $database = new Database();
 $db = $database->getConnection();
 
 //Inicializar el objeto
-$account = new account($db);
+$account = new Account($db);
 
 // Query account
 $stmt = $account->read();

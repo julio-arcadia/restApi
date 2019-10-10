@@ -6,30 +6,32 @@ class Customer{
 	private $table_name = "customer";
 	
 	// Propiedades de customer
-	private $customerID;
-	private $firstName;
-	private $lastName;
-	private $username;
-	private $password;
-	private $country;
-	private $region;
-	private $city;
-	private $address;
+	public $customerID;
+	public $firstName;
+	public $lastName;
+	public $username;
+	public $password;
+	public $country;
+	public $region;
+	public $city;
+	public $address;
 	
 	// constructor con $db como conexion a la db
-	public function __contruct($db){
+	public function __construct($db){
 		$this->conn = $db;
 	}
 
 	// read customer
 	function read(){
 		//query all
-		$query = "SELECT * FROM " . $this->table_name;
+		$query = "SELECT * FROM " . $this->table_name ;
 		
-		// Preparar Statement
+		//preparar el statement 
 		$stmt = $this->conn->prepare($query);
-		// Execute Query
+		
+		//ejecutarla
 		$stmt->execute();
+		
 		return $stmt;
 	}
 	
@@ -72,13 +74,12 @@ class Customer{
         function create(){
     	// query para hacer el insert del contenido de record
     		$query = "INSERT INTO " . $this->table_name . " SET
-                 customerID=:customerID, firstName=:firstName, lastName=:lastName, username=:username, password=:password, country=:country, region=:region, city=:city, address=:address";
+                 firstName=:firstName, lastName=:lastName, username=:username, password=:password, country=:country, region=:region, city=:city, address=:address";
  
     	// preparamos el query
     		$stmt = $this->conn->prepare($query);
  
-    	// lo saneamos por seguridad
-    		$this->customerID=htmlspecialchars(strip_tags($this->customerID));    
+    	// lo saneamos por seguridad    		    
     		$this->firstName=htmlspecialchars(strip_tags($this->firstName));
     		$this->lastName=htmlspecialchars(strip_tags($this->lastName));
 		$this->username=htmlspecialchars(strip_tags($this->username));
@@ -88,9 +89,7 @@ class Customer{
 		$this->city=htmlspecialchars(strip_tags($this->city));
 		$this->address=htmlspecialchars(strip_tags($this->address));
  
-    	// enlazamos los valores
-    
-    		$stmt->bindParam(":customerID", $this->customerID);
+    	// enlazamos los valores        		
     		$stmt->bindParam(":firstName", $this->firstName);
     		$stmt->bindParam(":lastName", $this->lastName);
 		$stmt->bindParam(":username", $this->username);
@@ -112,8 +111,7 @@ class Customer{
     // query para update
     $query = "UPDATE
                 " . $this->table_name . "
-            SET 
-	    	customerID=:customerID,
+            SET 	    	
                 firstName=:firstName,
                 lastName=:lastName,
                 username=:username,
@@ -178,7 +176,8 @@ class Customer{
 	}
 	function search($keywords){
 		// Query para Seleccionar todo
-		$query = "SELECT * FROM " . $this->table_name . " c WHERE 
+		$query = "SELECT c.customerID, c.firstName, c.lastName, c.username,  
+                c.country, c.region, c.city, c.address FROM " . $this->table_name . " c WHERE 
 		c.customerID LIKE ? OR c.firstName LIKE ? OR c.lastName LIKE ? OR c.username LIKE ?  
 		OR c.country LIKE ? OR c.region LIKE ? OR c.city LIKE ? OR c.address LIKE ?";
 		//Preparar Statement

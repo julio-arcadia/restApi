@@ -1,8 +1,8 @@
  <?php 
  //headers
- header("Access-Control-Allow-Origin: *");
- header("Acces-Control-Allow-Headers: access");
- header("Acces-Control-Allow-Methods: GET");
+header("Access-Control-Allow-Origin: *");
+header("Acces-Control-Allow-Headers: access");
+header("Acces-Control-Allow-Methods: GET");
 header("Access-Control-Allow-Credentials: true");
 header('Content-Type: application/json');
 
@@ -15,10 +15,10 @@ $db = $database->getConnection();
 // Instanciamos el objeto CUSTOMER 
 $customer = new Customer($db);
 // Definimos el ID del customer que queremos leer
-$customer->id = isset($_GET['id']) ? $_GET['id'] : die();
+$customer->customerID = isset($_GET['customerID']) ? $_GET['customerID'] : die();
 // Leer los detalles del producto para editarlos
 $customer->readOne();
-if($customer->name!=null){
+if($customer->firstName!=null){
 	//crear Array
 	$customer_arr = array(
 		"customerID" => $customer->customerID,

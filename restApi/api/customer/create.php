@@ -21,8 +21,7 @@ $customer = new Customer($db);
 $data = json_decode(file_get_contents("php://input"));
 
 // Nos aseguramos de que los datos no estan vacios
-if (!empty($data->customerID) &&
-    !empty($data->firstName) &&
+if (!empty($data->firstName) &&
     !empty($data->lastName) &&
     !empty($data->username) &&
     !empty($data->password) &&
@@ -31,9 +30,8 @@ if (!empty($data->customerID) &&
     !empty($data->city) &&
     !empty($data->address) 
    ){
-    // Set los valores de las propiedades de CUSTOMER
+    // Set los valores de las propiedades de CUSTOMER    
     
-    $customer->customerID = $data->customerID;
     $customer->firstName = $data->firstName;
     $customer->lastName = $data->lastName;
     $customer->username = $data->username;

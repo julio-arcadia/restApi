@@ -3,18 +3,18 @@
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 
-//Hacer include del fichero database.php y account.php
+//Hacer include del fichero database.php y customer.php
 include_once '../config/database.php';
 include_once '../objects/customer.php';
 
-//Instanciar la db y el objeto account
+//Instanciar la db y el objeto cust
 $database = new Database();
 $db = $database->getConnection();
 
 //Inicializar el objeto
 $customer = new Customer($db);
 
-// Query account
+// Query customer
 $stmt = $customer->read();
 $num = $stmt->rowCount();
 

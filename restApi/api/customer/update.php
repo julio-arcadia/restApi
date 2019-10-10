@@ -15,7 +15,7 @@ $database = new Database();
 $db = $database->getConnection();
  
 // preparamos el objeto cust
-$customer = new Account($db);
+$customer = new Customer($db);
  
 // cojemos el id del cust que vamos a editar
 $data = json_decode(file_get_contents("php://input"));
@@ -25,9 +25,15 @@ $customer->customerID = $data->customerID;
  
 // designamos los valores de las propiedades de customer
 
-$customer->customerNumber = $data->customerNumber;	
-$customer->description = $data->description;
-$customer->customerID = $data->customerID;
+    $customer->firstName = $data->firstName;
+    $customer->lastName = $data->lastName;
+    $customer->username = $data->username;
+    $customer->password = $data->password;
+    $customer->country = $data->country;
+    $customer->region = $data->region;
+    $customer->city = $data->city;
+    $customer->address = $data->address;
+    
  
 // hacemos update del customer
 if($customer->update()){
