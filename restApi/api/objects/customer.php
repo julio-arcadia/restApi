@@ -237,7 +237,40 @@ public function count(){
  
     return $row['total_rows'];
 }
-
+//Comprobamos si el username existe en la BBDD
+function usernameExist(){
+	// Query para comprobar si username existe
+	$query = "SELECT * FROM " . $this->table_name ." WHERE username = ? LIMIT 0,1";
+	//Preparamos la query
+	$stmt = $this->conn->prepare($query);
+	// saneamos
+	$this->username=htmlspecialchars(strip_tags($this->username));
+	//Hacemos BindParam a los atributos
+	$stmt->bindParam(1,$this->username);
+	// ejecutamos query
+	$stmt->execute();
+	//Obtenemos el numero de filas
+	$num = $stmt->rowCount();
+	// Si existe el username, asignamos los valores a las propiedades del objeto para el fácil acceso y uso php sessions
+	if($num>0){
+		//Obtenemos los valores guardados
+		$row = $stmt->fetch(PDO::FETCH_ASSOC);
+		// Asignamos los valores a las propiedades
+		$this->customerID = $row["customerID"];
+		$this->firstName = $row["firstName"];
+		$this->lastName = $row["lastName"];
+		$this->username = $row["username"];
+		$this->password = $row["password"];
+		$this->country = $row["country"];
+		$this->region = $row["region"];
+		$this->city = $row["city"];
+		$this->address = $row["address"];
+		
+		//retorna TRUE porque el username existe en la BBDD
+	}
+		//Retorna FALSE si el mail no existe en la BBDD
+		return false;
+}
 	
 }
 ?>
