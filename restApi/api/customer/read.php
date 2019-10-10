@@ -3,32 +3,32 @@
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 
-//Hacer include del fichero database.php y account.php
+//Hacer include del fichero database.php y customer.php
 include_once '../config/database.php';
-include_once '../objects/account.php';
+include_once '../objects/customer.php';
 
-//Instanciar la db y el objeto account
+//Instanciar la db y el objeto cust
 $database = new Database();
 $db = $database->getConnection();
 
 //Inicializar el objeto
-$account = new account($db);
+$customer = new Customer($db);
 
-// Query account
-$stmt = $account->read();
+// Query customer
+$stmt = $customer->read();
 $num = $stmt->rowCount();
 
 //revisar si encontró mas de 0
 if($num>0){
 	// array de account
-	$account_arr=array();
-	$account_arr["records"]=array();
+	$customer_arr=array();
+	$customer_arr["records"]=array();
 	// cojemos el contenido de la tabla
 	while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
 		// quitamos la parte de row con extract
 		extract($row);
 		
-		$account_item=array(
+		$customer_item=array(
 			"customerID" => $customerID,
 			"firstName" => $firstName,
 			"lastName" => $lastName,
@@ -40,14 +40,14 @@ if($num>0){
 			"address" => $address
 			);
 			
-			array_push($account_arr["records"], $account_item);
+			array_push($customer_arr["records"], $customer_item);
 	}
 	
 	// ponemos un response code - 200 OK
 	http_response_code(200);
 	
 	//mostramos la data de accountes en formato json
-	echo json_encode($account_arr);	
+	echo json_encode($customer_arr);	
 	}
 else {
 	//codigo 404
