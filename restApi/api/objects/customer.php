@@ -108,5 +108,43 @@ class Customer{
     		$stmt->execute();
 		return $stmt;
 	}
+	
+	// read pero con paginación
+public function readPaging($from_record_num, $records_per_page){
+ 
+    // select query
+    $query = "SELECT
+                *
+            FROM
+                " . $this->table_name . "
+                
+            LIMIT ?, ?";
+ 
+    // prepare query statement
+    $stmt = $this->conn->prepare( $query );
+ 
+    // bind variable values
+    $stmt->bindParam(1, $from_record_num, PDO::PARAM_INT);
+    $stmt->bindParam(2, $records_per_page, PDO::PARAM_INT);
+ 
+    // execute query
+    $stmt->execute();
+ 
+    // return values from database
+    return $stmt;
+}
+
+// count para la paginación
+public function count(){
+    $query = "SELECT COUNT(*) as total_rows FROM " . $this->table_name . "";
+ 
+    $stmt = $this->conn->prepare( $query );
+    $stmt->execute();
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+ 
+    return $row['total_rows'];
+}
+
+	
 }
 ?>
