@@ -21,7 +21,6 @@ class Customer{
 		$this->conn = $db;
 	}
 
-
 	// read customer
 	function read(){
 		//query all
@@ -69,10 +68,22 @@ class Customer{
     		if($stmt->execute()){
         		return true;
    		}
- 
     		return false;
-     
-			}
-        
 	}
+	function delete(){
+		// Delete Query
+		$query = "DELETE FROM " . $this->table_name . " WHERE customerID = ?";
+		// Prepare Query
+		$stmt  = $this->conn->prepare($query);
+		// saneamos por seguridad
+		$this->customerID=htmlspecialchars(strip_tags($this->customerID));
+		// bind id of record to delete
+    		$stmt->bindParam(1, $this->customerID);
+		// execute query
+    		if($stmt->execute()){
+        		return true;
+    		}
+    		return false;
+	}
+}
 ?>
