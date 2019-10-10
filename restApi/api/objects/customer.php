@@ -70,6 +70,61 @@ class Customer{
    		}
     		return false;
 	}
+	
+	function update(){
+ 
+    // query para update
+    $query = "UPDATE
+                " . $this->table_name . "
+            SET 
+	    	customerID=:customerID,
+                firstName=:firstName,
+                lastName=:lastName,
+                username=:username,
+                password=:password,
+                country=:country,
+                region=:region,
+                city=:city,
+                address=:address                
+            WHERE
+                customerID = :customerID";
+ 
+    // preparamos el query
+    $stmt = $this->conn->prepare($query);
+ 
+    // lo saneamos por seguridad
+    
+                $this->customerID=htmlspecialchars(strip_tags($this->customerID));    
+    		$this->firstName=htmlspecialchars(strip_tags($this->firstName));
+    		$this->lastName=htmlspecialchars(strip_tags($this->lastName));
+		$this->username=htmlspecialchars(strip_tags($this->username));
+		$this->password=htmlspecialchars(strip_tags($this->password));
+		$this->country=htmlspecialchars(strip_tags($this->country));
+		$this->region=htmlspecialchars(strip_tags($this->region));
+		$this->city=htmlspecialchars(strip_tags($this->city));
+		$this->address=htmlspecialchars(strip_tags($this->address));
+ 
+    // Enlazamos los nuevos valores 
+    
+                $stmt->bindParam(":customerID", $this->customerID);
+    		$stmt->bindParam(":firstName", $this->firstName);
+    		$stmt->bindParam(":lastName", $this->lastName);
+		$stmt->bindParam(":username", $this->username);
+		$stmt->bindParam(":password", $this->password);
+		$stmt->bindParam(":country", $this->country);
+		$stmt->bindParam(":region", $this->region);
+		$stmt->bindParam(":city", $this->city);
+		$stmt->bindParam(":address", $this->address);
+ 
+    // execute the query
+    if($stmt->execute()){
+        return true;
+    }
+ 
+    return false;
+}
+
+	
 	function delete(){
 		// Delete Query
 		$query = "DELETE FROM " . $this->table_name . " WHERE customerID = ?";
