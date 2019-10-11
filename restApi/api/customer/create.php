@@ -20,18 +20,7 @@ $customer = new Customer($db);
 // get posted data 
 $data = json_decode(file_get_contents("php://input"));
 
-// Nos aseguramos de que los datos no estan vacios
-if (!empty($data->firstName) &&
-    !empty($data->lastName) &&
-    !empty($data->username) &&
-    !empty($data->password) &&
-    !empty($data->country) &&
-    !empty($data->region) &&
-    !empty($data->city) &&
-    !empty($data->address) 
-   ){
-    // Set los valores de las propiedades de CUSTOMER    
-    
+ // Set los valores de las propiedades de CUSTOMER    
     $customer->firstName = $data->firstName;
     $customer->lastName = $data->lastName;
     $customer->username = $data->username;
@@ -40,25 +29,32 @@ if (!empty($data->firstName) &&
     $customer->region = $data->region;
     $customer->city = $data->city;
     $customer->address = $data->address;
+
+// Nos aseguramos de que los datos no estan vacios
+if (!empty($data->firstName) &&
+    !empty($data->lastName) &&
+    !empty($data->username) &&
+    !empty($data->password) &&
+    !empty($data->country) &&
+    !empty($data->region) &&
+    !empty($data->city) &&
+    !empty($data->address) && 
+    $customer->create()
+   ){
     
-    // Crear el CUSTOMER
-    if($customer->create()){
-      // set response code - 201 Creado
-        http_response_code(201);
-      // Avisamos al usuario
-      echo json_encode(array("message" => "Customer fue creado."));
-    } else{ 
+     // si es efectivo respondemos
+    http_response_code(200);
+ 
+    // y escribimos
+    echo json_encode(array("message" => "El cliente fue creado satisfactoriamente."));
+    
+   }
+     else{ 
       //Si no se pudo crear, avisamos al usuario
       // set response code - 503 service unavailable
         http_response_code(503);
         // Avisamos al usuario
         echo json_encode(array("message" => "No se pudo crear al cliente."));
     }
-} else{
-  // Decimos al usuarios que los dats están incompletos
-  // set response code - 400 bad request
-    http_response_code(400);
-  // Avisamos al usuario
-    echo json_encode(array("message" => "No se pudo crear al cliente. Datos incompletos."));
-}
+
 ?>

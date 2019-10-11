@@ -70,7 +70,7 @@ if($username_exists && password_verify($data->password, $customer->password)){
 } else{
 	// Login FALLIDO
 	http_response_code(401);
-	echo json_encode(array("message")=> "Login FALLIDO");
+	echo json_encode(array("message"=> "Login FALLIDO"));
 	
 }
 

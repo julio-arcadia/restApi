@@ -7,13 +7,13 @@ header("Access-Control-Max-Age: 3600");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
  
 // incluimos los phps de db, customer y las del jwt
-include_once '../config/database.php';
-include_once '../objects/customer.php';
-include_once '../config/core.php';
-include_once '../libs/php-jwt-master/src/BeforeValidException.php';
-include_once '../libs/php-jwt-master/src/ExpiredException.php';
-include_once '../libs/php-jwt-master/src/SignatureInvalidException.php';
-include_once '../libs/php-jwt-master/src/JWT.php';
+include_once 'config/database.php';
+include_once 'objects/customer.php';
+include_once 'config/core.php';
+include_once 'libs/php-jwt-master/src/BeforeValidException.php';
+include_once 'libs/php-jwt-master/src/ExpiredException.php';
+include_once 'libs/php-jwt-master/src/SignatureInvalidException.php';
+include_once 'libs/php-jwt-master/src/JWT.php';
 use \Firebase\JWT\JWT;
  
 // nos conectamos
@@ -39,7 +39,7 @@ if($jwt){
         $decoded = JWT::decode($jwt, $key, array('HS256'));
  
        // designamos los valores de las propiedades de customer
-        $customer->customerID = $data->customerID;
+        
         $customer->firstName = $data->firstName;
         $customer->lastName = $data->lastName;
         $customer->username = $data->username;
@@ -58,14 +58,14 @@ if($customer->update()){
    "iat" => $iat,
    "nbf" => $nbf,
    "data" => array(
-       "customerID" => $customer->customerID,
-       "firstName" => $customer->firstName,
-       "lastName" => $customer->lastName,
-       "username" => $customer->username,
-       "country" => $customer->country,
-       "region" => $customer->region,
-       "city" => $customer->city,
-       "address" => $customer->address            
+       "customerID", $customer->customerID,
+       "firstName", $customer->firstName,
+       "lastName", $customer->lastName,
+       "username", $customer->username,
+       "country", $customer->country,
+       "region", $customer->region,
+       "city", $customer->city,
+       "address", $customer->laddress            
    )
 );
 $jwt = JWT::encode($token, $key);
@@ -88,14 +88,10 @@ else{
     http_response_code(503);
  
     // se escribe
-    echo json_encode(array ( "message" => "No se puede modificar la cuenta.", "jwt" => $jwt,  "customerID" => $customer->customerID,
-       "firstName" => $customer->firstName,
-       "lastName" => $customer->lastName,
-       "username" => $customer->username,
-       "country" => $customer->country,
-       "region" => $customer->region,
-       "city" => $customer->city,
-       "address" => $customer->address   ));
+    echo json_encode(array ( "message" => "No se puede modificar la cuenta.",
+        
+        
+        "jwt" => $jwt));
 } 
         
     }

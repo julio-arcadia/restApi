@@ -3,15 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/juliocesar.perez/Programas/XAMPP/htdocs/restApi/api/customer/read.php</file>
-            <file>file:/C:/Users/juliocesar.perez/Programas/XAMPP/htdocs/restApi/api/account/create.php</file>
-            <file>file:/C:/Users/juliocesar.perez/Programas/XAMPP/htdocs/restApi/index.php</file>
-            <file>file:/C:/Users/juliocesar.perez/Programas/XAMPP/htdocs/restApi/api/objects/account.php</file>
+            <file>file:/C:/Users/juliocesar.perez/Programas/XAMPP/htdocs/restApi/api/update_customer.php</file>
+            <file>file:/C:/Users/juliocesar.perez/Programas/XAMPP/htdocs/restApi/api/customer/create.php</file>
+            <file>file:/C:/Users/juliocesar.perez/Programas/XAMPP/htdocs/restApi/api/config/core.php</file>
+            <file>file:/C:/Users/juliocesar.perez/Programas/XAMPP/htdocs/restApi/api/customer/read_paging.php</file>
+            <file>file:/C:/Users/juliocesar.perez/Programas/XAMPP/htdocs/restApi/api/customer/update.php</file>
+            <file>file:/C:/Users/juliocesar.perez/Programas/XAMPP/htdocs/restApi/index.html</file>
             <file>file:/C:/Users/juliocesar.perez/Programas/XAMPP/htdocs/restApi/api/objects/customer.php</file>
-            <file>file:/C:/Users/juliocesar.perez/Programas/XAMPP/htdocs/restApi/api/account/delete.php</file>
-            <file>file:/C:/Users/juliocesar.perez/Programas/XAMPP/htdocs/restApi/api/account/read_one.php</file>
-            <file>file:/C:/Users/juliocesar.perez/Programas/XAMPP/htdocs/restApi/api/account/read.php</file>
-            <file>file:/C:/Users/juliocesar.perez/Programas/XAMPP/htdocs/restApi/api/account/update.php</file>
+            <file>file:/C:/Users/juliocesar.perez/Programas/XAMPP/htdocs/restApi/api/shared/utilities.php</file>
         </group>
     </open-files>
 </project-private>
