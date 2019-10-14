@@ -11,14 +11,14 @@ $(document).ready(function(){
 				categories_options_html+="<option value='" + val.id + "'>" + val.name + "</option>";
 			});
 			categories_options_html+="</select>";
-			// we have our html form here where product information will be entered
+			// we have our html form here where customer information will be entered
 			// we used the 'required' html5 property to prevent empty fields
-			var create_product_html= `
-			<!-- 'read products' button to show list of products -->
-			<div id='read-products' class='btn btn-primary pull-right m-b-15px read-products-button'>
-			<span class='glyphicon glyphicon-list'></span> Read Products</div>
-			<!-- 'create product' html form -->
-	<form id='create-product-form' action='#' method='post' border='0'>
+			var create_customer_html= `
+			<!-- 'read customers' button to show list of customers -->
+			<div id='read-customers' class='btn btn-primary pull-right m-b-15px read-customers-button'>
+			<span class='glyphicon glyphicon-list'></span> Read Customers</div>
+			<!-- 'create customer' html form -->
+	<form id='create-customer-form' action='#' method='post' border='0'>
 		<table class='table table-hover table-responsive table-bordered'>
 	 
 			<!-- name field -->
@@ -50,7 +50,7 @@ $(document).ready(function(){
 				<td></td>
 				<td>
 					<button type='submit' class='btn btn-primary'>
-						<span class='glyphicon glyphicon-plus'></span> Create Product
+						<span class='glyphicon glyphicon-plus'></span> Create Customer
 					</button>
 				</td>
 			</tr>
@@ -65,7 +65,7 @@ $(document).ready(function(){
 		});
     });
  
-    // will run if create product form was submitted
+    // will run if create customer form was submitted
 	$(document).on('submit', '#create-customer-form', function(){
 		// get form data
 		var form_data=JSON.stringify($(this).serializeObject());
@@ -76,7 +76,7 @@ $(document).ready(function(){
 			contentType : 'application/json',
 			data : form_data,
 			success : function(result) {
-				// product was created, go back to products list
+				// customer was created, go back to customers list
 				showCustomers();
 			},
 			error: function(xhr, resp, text) {
