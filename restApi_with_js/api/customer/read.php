@@ -55,7 +55,7 @@ else {
 	
 	//Avisamos al user que no se encontró customer
 	echo json_encode(
-		array("message" => "No se encontraron cuentas.")
+		array("message" => "No se encontraron clientes.")
 		);
 }	
 ?>

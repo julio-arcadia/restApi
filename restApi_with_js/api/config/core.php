@@ -4,7 +4,7 @@ ini_set('display_errors', 1);
 error_reporting(E_ALL);
  
 // la URL de home
-$home_url="http://localhost/apiRest_with_js/api/";
+$home_url="http://localhost/apiRest_with_js/index.html";
  
 // la page que se da en el parametro URL, por defecto es 1
 $page = isset($_GET['page']) ? $_GET['page'] : 1;

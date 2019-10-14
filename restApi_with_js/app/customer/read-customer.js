@@ -10,8 +10,9 @@ $(document).on('click', '.read-customer-button', function(){
  
 // function to show list of customer
 function showCustomer(){
+   
  // get list of customer from the API
-$.getJSON("http://localhost/api/customer/read.php", function(data){
+$.getJSON("http://localhost/restApi_with_js/api/customer/read.php", function(data){
  // html for listing customer
 var read_customer_html=`
     <!-- when clicked, it will load the create customer form -->
@@ -73,10 +74,9 @@ $.each(data.records, function(key, val) {
 read_customer_html+=`</table>`;
 // inject to 'page-content' of our app
 $("#page-content").html(read_customer_html);
+ // chage page title
+	changePageTitle("Read Customer");
+		
  
 });
 }
-// when a 'read customer' button was clicked
-$(document).on('click', '.read-customer-button', function(){
-    showCustomer();
-});

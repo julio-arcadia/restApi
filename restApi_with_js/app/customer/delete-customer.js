@@ -20,7 +20,7 @@ $(document).ready(function(){
 				if(result==true){
 					// Enviamos la consulta a la API
 					$.ajax({
-						url: "http://localhost/api/customer/delete.php",
+						url: "http://localhost/restApi_with_js/api/customer/delete.php",
 						type: "POST",
 						dataType: "json",
 						data: JSON.stringify({ id: customer_id}),

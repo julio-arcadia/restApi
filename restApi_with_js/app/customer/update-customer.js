@@ -4,7 +4,7 @@ $(document).ready(function(){
 		// Obtener la ID del customer
 		var id = $(this).attr("data-id");
 		// Leer los resultados basados en la id del customer
-		$.getJSON("http://localhost/api/customer/read_one.php?id=" + id, function(data){
+		$.getJSON("http://localhost/restApi_with_js/api/customer/read_one.php?id=" + id, function(data){
 			// Valores que se usaran para completar nuestro formulario
 			var firstName = data.firstName;
 			var lastName = data.lastName;
@@ -70,8 +70,8 @@ $(document).ready(function(){
 			</tr>
 			<tr>
 	 
-				<!-- hidden 'product id' to identify which record to delete -->
-				<td><input value=\"` + id + `\" name='id' type='hidden' /></td>
+				<!-- hidden 'Customer id' to identify which record to delete -->
+				<td><input value=\"` + customerID + `\" name='customerID' type='hidden' /></td>
 	 
 				<!-- Botón para enviar el formulario -->
 				<td>
@@ -98,7 +98,7 @@ $(document).ready(function(){
 		var form_data=JSON.stringify($(this).serializeObject());
 		// Enviamos los datos del formulario a la API
 		$.ajax({
-			url: "http://localhost/api/customer/update.php",
+			url: "http://localhost/restApi_with_js/api/customer/update.php",
 			type : "POST",
 			contentType : "application/json",
 			data : form_data,

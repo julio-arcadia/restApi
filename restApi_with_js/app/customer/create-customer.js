@@ -29,7 +29,13 @@ $(document).ready(function(){
 			<tr>
 				<td>username</td>
 				<td><input type='text' username='username' class='form-control' required /></td>
-			</tr>            	 	
+			</tr>  
+        
+                        <!-- password field -->
+			<tr>
+				<td>password</td>
+				<td><input type='password' password='password' class='form-control' required /></td>
+			</tr>
 	 
 			<!-- Country field -->
 			<tr>
@@ -47,7 +53,13 @@ $(document).ready(function(){
 			<tr>
 				<td>City</td>
 				<td><input type='text' city='city' class='form-control' required /></td>
-			</tr>                                      
+			</tr> 
+        
+                        <!-- Address field -->
+			<tr>
+				<td>Address</td>
+				<td><input type='text' address='address' class='form-control' required /></td>
+			</tr>   
 	 
 			<!-- button to submit form -->
 			<tr>
@@ -64,7 +76,7 @@ $(document).ready(function(){
 	// inject html to 'page-content' of our app
 	$("#page-content").html(create_customer_html);
  
-	// chage page title
+	// change page title
 	changePageTitle("Create Customer");
 		});
     });
@@ -75,13 +87,13 @@ $(document).ready(function(){
 		var form_data=JSON.stringify($(this).serializeObject());
 		// submit form data to api
 		$.ajax({
-			url: "http://localhost/api/customer/create.php",
+			url: "http://localhost/restApi_with_js/api/customer/create.php",
 			type : "POST",
 			contentType : 'application/json',
 			data : form_data,
 			success : function(result) {
 				// customer was created, go back to customer list
-				showCustomers();
+				showCustomer();
 			},
 			error: function(xhr, resp, text) {
 				// show error to console
